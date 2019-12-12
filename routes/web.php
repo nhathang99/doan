@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
-});
+});  
 
 Route::get('/chitiet',function(){
    return view('chitiet');
