@@ -1,9 +1,28 @@
 <?php
+
+// use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::group(['middleware' => ['MyAuth']], function () {
+    Route::prefix('admin')->group(function () {
+        route::get('', function () {
+            return view('admin');
+        });
+        route::get('/khachhang', function () {
+            $data = DB::table('product')
+                ->join('category', 'product.CategoryID', '=', 'category.id')
+                ->select('product.*', 'category.CategoryName')
+                ->get();
+        
+            return view('khachhang', ['data' => $data]);
+        
+        });
+    });
+ });
 
 Route::get('/chitiet', function () {
     return view('chitiet');
@@ -21,20 +40,6 @@ Route::get('/detail/{id}', function ($id) {
     $data = DB::table('product')->where('id', '=', $id)->get();
     //dd($data);
     return view('chitiet', ['data' => $data]);
-});
-
-route::get('/admin', function () {
-    return view('admin');
-});
-
-route::get('/khachhang', function () {
-    $data = DB::table('product')
-        ->join('category', 'product.CategoryID', '=', 'category.id')
-        ->select('product.*', 'category.CategoryName')
-        ->get();
-
-    return view('khachhang', ['data' => $data]);
-
 });
 
 route::get('/themsp', function () {
@@ -60,3 +65,8 @@ Route::get('/xemthem/{id}', function ($id) {
  * homepage
  */
 Route::get('/category/{categoryID}','HomeController@renderProductByCategory');
+
+Route::get('/login',function(){
+    return view('login');
+});
+Route::post('/loginAdmin','AuthController@login');
