@@ -63,18 +63,18 @@
 	<section id="body">
 		<div class="container">
 			<div class="row">
-				<div id="sidebar" class="col-md-3">
-					<nav id="menu">
-						<ul>
-                                    <li class="menu-item">MENU</li>
-                                    <li class="menu-item"><a href="{{asset('/home/')}}" title="">Trang chủ</a></li>
-                                    <li class="menu-item"><a href="#" title="">Giới thiệu</a></li>
-                                    <li class="menu-item"><a href="#" title="">Váy</a></li>
-                                    <li class="menu-item"><a href="#" title="">Đầm</a></li>
-                                    <li class="menu-item"><a href="#" title="">ÁO</a></li>
-                                    <li class="menu-item"><a href="#" title="">Quần</a></li>
-                                </ul>
-						<!-- <a href="#" id="pull">Danh mục</a> -->
+                <div id="sidebar" class="col-md-3">
+                    <nav id="menu">
+                
+                        <ul id='listCategory' class="multi-column-dropdown">
+                            <li class="menu-item">MENU</li>
+                            <li class="menu-item"><a href="{{asset('/home/')}}" title="">Trang chủ</a></li>
+                            <!-- {{-- loop all category here --}} -->
+                        </ul>
+                        <ul>
+                
+                        </ul>
+                        <!-- <a href="#" id="pull">Danh mục</a> -->
                     </nav>
                 </div>
                 <div id="main" class="col-md-9">
@@ -228,6 +228,14 @@
 
 		</div>
 	</footer>
-	<!-- endfooter -->
+    <!-- endfooter -->
+    
+    <script>
+        $.get("/api/category", function (data, status) {
+            data.map((item, index) => {
+                $('#listCategory').append(`<li class="menu-item"><a href="/category/${item.id}">${item.CategoryName}</a></li>`)
+            })
+        });
+    </script>
 </body>
 </html>

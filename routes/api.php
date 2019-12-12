@@ -48,6 +48,9 @@ route::post('themsp', function (Request $req) {
     return redirect('/khachhang');
 });
 
+// get all category name
+Route::get('/category','ProductController@getAllCategory');
+
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

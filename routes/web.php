@@ -55,3 +55,8 @@ Route::get('/xemthem/{id}', function ($id) {
     // dd($data);
     return view('xemthem', ['data' => $data]);
 });
+
+/**
+ * homepage
+ */
+Route::get('/category/{categoryID}','HomeController@renderProductByCategory');
