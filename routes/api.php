@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('delete/{id}', function ($id) {
+Route::delete('delete/product/{id}', function ($id) {
     DB::table('product')->where('id', '=', $id)->delete();
-    return redirect('/khachhang');
+    // return redirect('/khachhang');
 });
 
 

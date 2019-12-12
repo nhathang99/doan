@@ -27,7 +27,7 @@ route::get('/admin', function () {
     return view('admin');
 });
 
-route::get('/khachhang', function () {
+Route::get('/sanpham', function () {
     $data = DB::table('product')
         ->join('category', 'product.CategoryID', '=', 'category.id')
         ->select('product.*', 'category.CategoryName')
