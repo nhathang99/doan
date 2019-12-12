@@ -135,16 +135,51 @@
                     <div id="pagination">
                         <ul class="pagination pagination-lg justify-content-center">
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                                <a class="page-link" href="{{$data->previousPageUrl()}}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===1) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(1)}}">1</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===2) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(2)}}">2</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===3) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(3)}}">3</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===4) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(4)}}">4</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===5) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(5)}}">5</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===6) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(6)}}">6</a>
+                            </li>
+                            
+                            
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                                <a class="page-link" href="{{$data->nextPageUrl()}}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
