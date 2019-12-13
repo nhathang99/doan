@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
@@ -13,7 +12,14 @@ class HomeController extends Controller
             ->where('CategoryID', $categoryID)
             ->simplePaginate(15);
 
-        return view('home', ['data'=>$data]);
+        return view('home', ['data' => $data]);
 
+    }
+
+    public function renderDetailProduct($productID)
+    {
+        $data = DB::table('product')->where('id', '=', $productID)->get();
+  
+        return view('chitiet', ['data' => $data]);
     }
 }

@@ -17,11 +17,7 @@ Route::get('/home', function () {
     return view('home', ['data' => $data]);
 });
 
-Route::get('/detail/{id}', function ($id) {
-    $data = DB::table('product')->where('id', '=', $id)->get();
-    //dd($data);
-    return view('chitiet', ['data' => $data]);
-});
+Route::get('/detail/{id}','HomeController@renderDetailProduct');
 
 route::get('/admin', function () {
     return view('admin');
@@ -60,3 +56,10 @@ Route::get('/xemthem/{id}', function ($id) {
  * homepage
  */
 Route::get('/category/{categoryID}','HomeController@renderProductByCategory');
+
+/**
+ * shopping cart
+ */
+Route::post('/cart', 'CartController@add');
+Route::get('/increaseCartItem/{id}', 'CartController@increaseCartItem');
+Route::get('/decreaseCartItem/{id}', 'CartController@decreaseCartItem');
