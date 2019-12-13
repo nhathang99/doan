@@ -42,9 +42,7 @@ Route::get('/detail/{id}', function ($id) {
     return view('chitiet', ['data' => $data]);
 });
 
-route::get('/admin', function () {
-    return view('admin');
-});
+
 
 Route::get('/sanpham', function () {
     $data = DB::table('product')
