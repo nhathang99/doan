@@ -53,8 +53,14 @@
       </div>
 
       <!-- Nav Item - Pages Collapse Menu -->
+      {{-- <li class="nav-item">
+        <a class="nav-link collapsed" href="/sanpham" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa-fw fa-cog"></i>
+          <span>Quan ly san pham</span>
+        </a>
+      </li> --}}
       <li class="nav-item">
-        <a class="nav-link collapsed" href="/khachhang" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <a class="nav-link collapsed" href="/sanpham" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
           <span>Quan ly san pham</span>
         </a>

@@ -63,18 +63,18 @@
 	<section id="body">
 		<div class="container">
 			<div class="row">
-				<div id="sidebar" class="col-md-3">
-					<nav id="menu">
-						<ul>
-                                    <li class="menu-item">MENU</li>
-                                    <li class="menu-item"><a href="{{asset('/home/')}}" title="">Trang chủ</a></li>
-                                    <li class="menu-item"><a href="#" title="">Giới thiệu</a></li>
-                                    <li class="menu-item"><a href="#" title="">Váy</a></li>
-                                    <li class="menu-item"><a href="#" title="">Đầm</a></li>
-                                    <li class="menu-item"><a href="#" title="">ÁO</a></li>
-                                    <li class="menu-item"><a href="#" title="">Quần</a></li>
-                                </ul>
-						<!-- <a href="#" id="pull">Danh mục</a> -->
+                <div id="sidebar" class="col-md-3">
+                    <nav id="menu">
+                
+                        <ul id='listCategory' class="multi-column-dropdown">
+                            <li class="menu-item">MENU</li>
+                            <li class="menu-item"><a href='/' title="">Trang chủ</a></li>
+                            <!-- {{-- loop all category here --}} -->
+                        </ul>
+                        <ul>
+                
+                        </ul>
+                        <!-- <a href="#" id="pull">Danh mục</a> -->
                     </nav>
                 </div>
                 <div id="main" class="col-md-9">
@@ -122,7 +122,7 @@
 								<div class="product-item col-md-3 col-sm-6 col-xs-12">
 									<a href="#"><img class="abcd" src="{{asset($item->image)}}" class="img-thumbnail"></a>
 									<p><a href="#">{{$item->name}}</a></p>
-									<p class="price">{{$item->price}}</p>
+									<p class="price">{{number_format($item->price)}} đ</p>
 									<div class="marsk">
                                         <a href="/detail/{{$item->id}}">Xem chi tiết</a>
 									</div>
@@ -135,16 +135,51 @@
                     <div id="pagination">
                         <ul class="pagination pagination-lg justify-content-center">
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
+                                <a class="page-link" href="{{$data->previousPageUrl()}}" aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                     <span class="sr-only">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item disabled"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===1) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(1)}}">1</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===2) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(2)}}">2</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===3) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(3)}}">3</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===4) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(4)}}">4</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===5) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(5)}}">5</a>
+                            </li>
+                            <li class="page-item 
+                                    @if($data->currentPage()===6) 
+                                    active 
+                                    @endif">
+                                <a class="page-link" href="{{$data->url(6)}}">6</a>
+                            </li>
+                            
+                            
                             <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
+                                <a class="page-link" href="{{$data->nextPageUrl()}}" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                     <span class="sr-only">Next</span>
                                 </a>
@@ -193,6 +228,14 @@
 
 		</div>
 	</footer>
-	<!-- endfooter -->
+    <!-- endfooter -->
+    
+    <script>
+        $.get("/api/category", function (data, status) {
+            data.map((item, index) => {
+                $('#listCategory').append(`<li class="menu-item"><a href="/category/${item.id}">${item.CategoryName}</a></li>`)
+            })
+        });
+    </script>
 </body>
 </html>

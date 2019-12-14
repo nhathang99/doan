@@ -13,9 +13,9 @@ use Illuminate\Http\Request;
 */
 
 
-Route::post('delete/{id}', function ($id) {
+Route::delete('delete/product/{id}', function ($id) {
     DB::table('product')->where('id', '=', $id)->delete();
-    return redirect('/khachhang');
+    // return redirect('/khachhang');
 });
 
 
@@ -47,6 +47,9 @@ route::post('themsp', function (Request $req) {
 
     return redirect('/khachhang');
 });
+
+// get all category name
+Route::get('/category','ProductController@getAllCategory');
 
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
