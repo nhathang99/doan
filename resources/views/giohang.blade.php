@@ -199,12 +199,10 @@
                                 <div class="row" id="total-price">
                                     <div id='sumAll' class="col-md-6 col-sm-12 col-xs-12">
                                         Tổng thanh toán: <span  class="total-price">{{Cart::subtotal()}} đ</span>
-
                                     </div>
+                                    <div class="col-sm-7"></div>
                                     <div class="col-md-6 col-sm-12 col-xs-12">
                                         <a href="/" class="my-btn btn">Mua tiếp</a>
-                                        <a href="#" class="my-btn btn">Cập nhật</a>
-                                        <a href="#" class="my-btn btn">Xóa giỏ hàng</a>
                                     </div>
                                 </div>
                             </form>

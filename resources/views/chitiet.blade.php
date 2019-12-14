@@ -65,7 +65,8 @@
 
 					<div id="banner-l" class="text-center">
 						<div class="banner-l-item">
-							<a href="#"><img src="{{asset('/img/home/banner-l-1.png')}}" alt="" class="img-thumbnail"></a>
+							<a href="#"><img src="{{asset('/img/home/banner-l-1.png')}}" alt=""
+									class="img-thumbnail"></a>
 						</div>
 						<div class="banner-l-item">
 							<a href="#"><img src="img/home/banner-l-2.png" alt="" class="img-thumbnail"></a>
@@ -129,8 +130,7 @@
 
 											</dl>
 											<hr>
-											<a href='/giohang'
-												class="btn btn-lg btn-outline-primary text-uppercase"> <i
+											<a href='/giohang' class="btn btn-lg btn-outline-primary text-uppercase"> <i
 													class="fa fa-shopping-cart"></i> Thanh toán </a>
 
 										</div>
@@ -146,37 +146,28 @@
 							<div id="comment">
 								<h3>Bình luận</h3>
 								<div class="col-md-9 comment">
-									<form>
-										<div class="form-group">
-											<label for="email">Email:</label>
-											<input required type="email" class="form-control" id="email" name="email">
-										</div>
-										<div class="form-group">
-											<label for="name">Tên:</label>
-											<input required type="text" class="form-control" id="name" name="name">
-										</div>
-										<div class="form-group">
-											<label for="cm">Bình luận:</label>
-											<textarea required rows="10" id="cm" class="form-control"
-												name="content"></textarea>
-										</div>
-										<div class="form-group text-right">
-											<button type="submit" class="btn btn-default">Gửi</button>
-										</div>
-									</form>
+
+
+									<div class="form-group">
+										<label for="name">Tên bạn:</label>
+										<input required type="text" class="form-control" id="name-comment" name="name">
+									</div>
+									<div class="form-group">
+										<label for="cm">Bình luận:</label>
+										<textarea required rows="10" id="content-comment" class="form-control"
+											name="content"></textarea>
+									</div>
+									<div class="form-group text-right">
+										<button onclick="submitComment({{$data[0]->id}})"
+											class="btn btn-default">Gửi</button>
+									</div>
+
 								</div>
 							</div>
 							<div id="comment-list">
-								<ul>
-									<li class="com-title">
-										email
-										<br>
-										<span>2017-19-01 10:00:00</span>
-									</li>
-									<li class="com-details">
-										nội dung
-									</li>
-								</ul>
+
+
+
 							</div>
 						</div>
 						<!-- end main -->
@@ -225,7 +216,7 @@
 	</footer>
 	<!-- endfooter -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	
+
 	<!-- set up ajax -->
 	<script>
 		$.ajaxSetup({
@@ -235,29 +226,58 @@
 		});
 	</script>
 
+	<!-- load comment -->
+	<script>
+
+		const loadAllComment = () => {
+			let idProduct = $('#idProduct').attr('value')
+
+			$.get(`/comment/${idProduct}`, function (data, status) {
+				$('#comment-list').empty()
+				data.forEach(item => {
+					$('#comment-list').append(
+						`
+						<ul>
+							<li class="com-title">
+								${item.com_name}
+								<br>
+							</li>
+							<li class="com-details">
+								${item.com_content}
+							</li>
+						</ul>
+						`
+					)
+				});
+
+			});
+		}
+		loadAllComment()
+	</script>
+
+
 	<!-- fetch product quantity -->
 	<script>
-		let idProduct=$('#idProduct').attr('value')
-		
+		let idProduct = $('#idProduct').attr('value')
+
 		$.get(`/cartItem/${idProduct}`, function (data, status) {
 			let {count} = data
-			
+
 			$('#soluong').text(count)
 		});
 	</script>
 
 
 	<script>
-
 		const increaseItem = id => {
 
-			
+
 
 			$.get(`/increaseCartItem/${id}`, function (data, status) {
 				let {qty, id, image, subtotal, totalAll, countAll} = data
 				let soLuongCu = eval($('#soluong').text())
 				$('#soluong').text(qty)
-				
+
 			});
 		}
 		const decreaseItem = id => {
@@ -281,6 +301,21 @@
 			}
 		}
 	</script>
+
+	<script>
+		const submitComment = id => {
+			$.post(`/comment/${id}`,
+				{
+					content: $('#content-comment').val(),
+					name: $('#name-comment').val()
+				},
+				function (data, status) {
+					loadAllComment()
+				});
+		}
+	</script>
+
+
 </body>
 
 </html>

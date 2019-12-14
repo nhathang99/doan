@@ -58,3 +58,9 @@ Route::get('/cartItem/{id}','CartController@getItemInfo');
 Route::get('/detail/{id}','HomeController@renderDetailProduct');
 route::get('/giohang','CartController@checkout');
 Route::get('/removeItem/{rowID}', 'CartController@removeItem');
+
+/**
+ * comment
+ */
+Route::post('/comment/{id}', 'ProductController@postComment');
+Route::get('/comment/{productID}', 'ProductController@getCommentByProduct');
