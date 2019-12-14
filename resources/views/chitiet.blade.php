@@ -9,10 +9,10 @@
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
 	<link rel="stylesheet" href="{{asset('css/details.css')}}">
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="{{asset('/js/jquery-3.2.1.min.js')}}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script type="text/javascript" src="{{asset('js/bootstrap.min.js')}}"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script type="text/javascript">
 		$(function () {
 			var pull = $('#pull');
@@ -40,7 +40,7 @@
 		<div class="container">
 			<div class="row">
 				<div id="cart" class="col-md-3 col-sm-12 col-xs-12">
-					<li class="active"><a href={{asset('/home')}}>TRANG CHỦ</a></li>
+					<li class="active"><a href='/'>TRANG CHỦ</a></li>
 
 				</div>
 				<div id="search" class="col-md-7 col-sm-12 col-xs-12">
@@ -65,7 +65,7 @@
 
 					<div id="banner-l" class="text-center">
 						<div class="banner-l-item">
-							<a href="#"><img src="img/home/banner-l-1.png" alt="" class="img-thumbnail"></a>
+							<a href="#"><img src="{{asset('/img/home/banner-l-1.png')}}" alt="" class="img-thumbnail"></a>
 						</div>
 						<div class="banner-l-item">
 							<a href="#"><img src="img/home/banner-l-2.png" alt="" class="img-thumbnail"></a>
@@ -90,7 +90,7 @@
 
 				<div id="main" class="col-md-9">
 					<!-- main -->
-
+					<input type="hidden" value="{{$data[0]->id}}" id="idProduct">
 					<div id="wrap-inner">
 						<div id="product-info">
 							<div class="clearfix"></div>
@@ -100,7 +100,7 @@
 									<img src="{{asset($data[0]->image)}}" width="120%" height="100%">
 								</div>
 								<div id="product-details" class="col-xs-12 col-sm-12 col-md-9">
-									<p>Giá: <span class="price">{{$data[0]->price}}</span></p>
+									<p>Giá: <span class="price">{{number_format($data[0]->price)}} đ</span></p>
 									<hr>
 
 									<div class="row">
@@ -111,7 +111,7 @@
 													<div class="row">
 														<div class="col-sm-4">
 															<label id='soluong' class="form-control form-control-sm"
-																style="width:70px; ">0</label>
+																style="width:70px; ">2</label>
 														</div>
 														<div class="col-sm-4">
 															<a onclick="increaseItem({{$data[0]->id}})"
@@ -129,9 +129,9 @@
 
 											</dl>
 											<hr>
-											<a href={{asset('/giohang')}}
+											<a href='/giohang'
 												class="btn btn-lg btn-outline-primary text-uppercase"> <i
-													class="fas fa-shopping-cart"></i> Them vao gio hang </a>
+													class="fa fa-shopping-cart"></i> Thanh toán </a>
 
 										</div>
 									</div>
@@ -225,32 +225,44 @@
 	</footer>
 	<!-- endfooter -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	
+	<!-- set up ajax -->
 	<script>
-
 		$.ajaxSetup({
 			headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			}
 		});
+	</script>
+
+	<!-- fetch product quantity -->
+	<script>
+		let idProduct=$('#idProduct').attr('value')
+		
+		$.get(`/cartItem/${idProduct}`, function (data, status) {
+			let {count} = data
+			
+			$('#soluong').text(count)
+		});
+	</script>
+
+
+	<script>
 
 		const increaseItem = id => {
 
-			let soLuongCu = eval($('#soluong').text())
-			$('#soluong').text(soLuongCu + 1)
+			
 
 			$.get(`/increaseCartItem/${id}`, function (data, status) {
 				let {qty, id, image, subtotal, totalAll, countAll} = data
-
-				$(`#amount-${id}`).text(qty)
-				$(`#price-${id}`).text(subtotal + " VND")
-				$('#bill-total').text(totalAll)
-				$('#simpleCart_quantity').text(countAll)
-				$('#cart-total').text(totalAll)
+				let soLuongCu = eval($('#soluong').text())
+				$('#soluong').text(qty)
+				
 			});
 		}
 		const decreaseItem = id => {
 			let soLuongCu = eval($('#soluong').text())
-			if (soLuongCu > 1) {
+			if (soLuongCu >= 1) {
 				$('#soluong').text(soLuongCu - 1)
 				$.get(`/decreaseCartItem/${id}`, function (data, status) {
 					let {qty, id, image, subtotal, totalAll, countAll} = data

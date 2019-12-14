@@ -13,10 +13,10 @@ class CartController extends Controller
     {
         $product_id = Request::get('product_id');
         $product = DB::table('product')->find($product_id);
-        
+
         Cart::add(array('id' => $product_id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price, 'options' => ['image' => $product->image]));
         $cart = Cart::content();
-        
+
         $total = Cart::total();
         $count = Cart::count();
 
@@ -28,25 +28,66 @@ class CartController extends Controller
         return Response::json($data);
     }
 
+    public function getItemInfo($id)
+    {
+        $cartRow = Cart::search(function ($cartItem, $rowId) use ($id) {
+            if ($cartItem->id == $id) {
+                return $cartItem->name;
+            }
+
+        });
+
+        $cartRow = $cartRow->first();
+        if ($cartRow == null) {
+            return [
+                'count' => 0,
+            ];
+        }
+        $rowId = $cartRow->rowId;
+
+        $item = Cart::get($rowId);
+
+        $result = [
+            'id' => $cartRow->id,
+            'selectedProductName' => $cartRow->name,
+            'price' => $cartRow->price,
+            'count' => $cartRow->qty,
+            'total' => $cartRow->subtotal,
+            'image' => $cartRow->options->image,
+        ];
+
+        return $result;
+
+    }
+
+    /**
+     * if cart not has item yet, add it
+     * if cart already contain item, increase item by 1
+     */
     public function increaseCartItem($id)
     {
-        $numberOfItems = Cart::count();
+        $numberOfItems = 0;
+        $cartRow = Cart::search(function ($cartItem, $rowId) use ($id) {
+            if ($cartItem->id == $id) {
+                return $cartItem->name;
+            }
+
+        });
+
+        $cartRow = $cartRow->first();
+
+        if ($cartRow != null) {
+            $numberOfItems = $cartRow->qty;
+        }
 
         if ($numberOfItems == 0) {
-            
+
             $product = DB::table('product')->find($id);
-            
+
             Cart::add(array('id' => $id, 'name' => $product->name, 'qty' => 1, 'price' => $product->price, 'options' => ['image' => $product->image]));
-           
-            $cart = Cart::content();
-            
-            $total = Cart::total();
-            $count = Cart::count();
-    
+
             $data = (object) [
-                'total' => $total,
-                'count' => $count,
-                'selectedProductName' => $product->name,
+                'qty' => 1,
             ];
             return Response::json($data);
         } else {
@@ -112,7 +153,13 @@ class CartController extends Controller
     public function checkout()
     {
         $cart = Cart::content();
-        return view('checkout', array('cart' => $cart, 'title' => 'Welcome', 'description' => '', 'page' => 'home'));
+        // dd($cart);
+        return view('giohang', array('cart' => $cart, 'title' => 'Welcome', 'description' => '', 'page' => 'home'));
+    }
+    public function removeItem($rowID)
+    {
+        Cart::remove($rowID);
+        return 1;
     }
     public function cart()
     {

@@ -1,23 +1,16 @@
 <?php
 use Illuminate\Support\Facades\DB;
 
+/**
+ * homepage
+ */
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/chitiet', function () {
-    return view('chitiet');
-});
-
-Route::get('/home', function () {
-
     // sửa lại số sản phẩm muốn hiển thị trong 1 trang trong hàm simplePaginate khi đã có nhiều data
     $data = DB::table('product')->simplePaginate(2);
 
     return view('home', ['data' => $data]);
 });
 
-Route::get('/detail/{id}','HomeController@renderDetailProduct');
 
 route::get('/admin', function () {
     return view('admin');
@@ -42,9 +35,7 @@ route::get('/xemthem', function () {
     return view('/xemthem');
 
 });
-route::get('/giohang', function () {
-    return view('/giohang');
-});
+
 
 Route::get('/xemthem/{id}', function ($id) {
     $data = DB::table('product')->where('id', '=', $id)->get();
@@ -63,3 +54,7 @@ Route::get('/category/{categoryID}','HomeController@renderProductByCategory');
 Route::post('/cart', 'CartController@add');
 Route::get('/increaseCartItem/{id}', 'CartController@increaseCartItem');
 Route::get('/decreaseCartItem/{id}', 'CartController@decreaseCartItem');
+Route::get('/cartItem/{id}','CartController@getItemInfo');
+Route::get('/detail/{id}','HomeController@renderDetailProduct');
+route::get('/giohang','CartController@checkout');
+Route::get('/removeItem/{rowID}', 'CartController@removeItem');
