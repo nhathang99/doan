@@ -310,6 +310,8 @@
 					name: $('#name-comment').val()
 				},
 				function (data, status) {
+					$('#content-comment').val('')
+					$('#name-comment').val('')
 					loadAllComment()
 				});
 		}
