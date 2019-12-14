@@ -4,6 +4,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * homepage
+ */
 Route::get('/', function () {
     return view('welcome');
 });
@@ -36,11 +39,6 @@ Route::get('/home', function () {
     return view('home', ['data' => $data]);
 });
 
-Route::get('/detail/{id}', function ($id) {
-    $data = DB::table('product')->where('id', '=', $id)->get();
-    //dd($data);
-    return view('chitiet', ['data' => $data]);
-});
 
 
 
@@ -63,9 +61,7 @@ route::get('/xemthem', function () {
     return view('/xemthem');
 
 });
-route::get('/giohang', function () {
-    return view('/giohang');
-});
+
 
 Route::get('/xemthem/{id}', function ($id) {
     $data = DB::table('product')->where('id', '=', $id)->get();
@@ -82,3 +78,19 @@ Route::get('/login',function(){
     return view('login');
 });
 Route::post('/loginAdmin','AuthController@login');
+/**
+ * shopping cart
+ */
+Route::post('/cart', 'CartController@add');
+Route::get('/increaseCartItem/{id}', 'CartController@increaseCartItem');
+Route::get('/decreaseCartItem/{id}', 'CartController@decreaseCartItem');
+Route::get('/cartItem/{id}','CartController@getItemInfo');
+Route::get('/detail/{id}','HomeController@renderDetailProduct');
+route::get('/giohang','CartController@checkout');
+Route::get('/removeItem/{rowID}', 'CartController@removeItem');
+
+/**
+ * comment
+ */
+Route::post('/comment/{id}', 'ProductController@postComment');
+Route::get('/comment/{productID}', 'ProductController@getCommentByProduct');

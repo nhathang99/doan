@@ -68,7 +68,7 @@
                 
                         <ul id='listCategory' class="multi-column-dropdown">
                             <li class="menu-item">MENU</li>
-                            <li class="menu-item"><a href="{{asset('/home/')}}" title="">Trang chủ</a></li>
+                            <li class="menu-item"><a href='/' title="">Trang chủ</a></li>
                             <!-- {{-- loop all category here --}} -->
                         </ul>
                         <ul>
@@ -122,7 +122,7 @@
 								<div class="product-item col-md-3 col-sm-6 col-xs-12">
 									<a href="#"><img class="abcd" src="{{asset($item->image)}}" class="img-thumbnail"></a>
 									<p><a href="#">{{$item->name}}</a></p>
-									<p class="price">{{$item->price}}</p>
+									<p class="price">{{number_format($item->price)}} đ</p>
 									<div class="marsk">
                                         <a href="/detail/{{$item->id}}">Xem chi tiết</a>
 									</div>
