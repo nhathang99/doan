@@ -197,8 +197,8 @@
                                     @endif
                                 </table>
                                 <div class="row" id="total-price">
-                                    <div class="col-md-6 col-sm-12 col-xs-12">
-                                        Tổng thanh toán: <span class="total-price">{{Cart::subtotal()}} đ</span>
+                                    <div id='sumAll' class="col-md-6 col-sm-12 col-xs-12">
+                                        Tổng thanh toán: <span  class="total-price">{{Cart::subtotal()}} đ</span>
 
                                     </div>
                                     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -287,6 +287,7 @@
             $.get(`/removeItem/${rowID}`, function (data, status) {
 
                 $(`#item-${rowID}`).remove()
+                $('#sumAll').load(' #sumAll')
             });
         }
     </script>
