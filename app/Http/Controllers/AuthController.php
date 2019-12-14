@@ -23,7 +23,7 @@ class AuthController extends Controller
                 return redirect('/admin');
             }else{
                 Auth::logout();
-                return view('/login')->with('successMsg', 'tai khoan ko co quyen truy cap admin ');
+                return view('/login')->with('successMsg', 'You do not have access');
             }
         } else {
             // return redirect()->intended('admin/login');
