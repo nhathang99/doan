@@ -1,5 +1,7 @@
 <?php
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+// use Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,32 @@ use Illuminate\Http\Request;
 Route::delete('delete/product/{id}', function ($id) {
     DB::table('product')->where('id', '=', $id)->delete();
     // return redirect('/khachhang');
+});
+Route::post('admin/updateProduct',function(Request $request){
+    $id=$request->input('idProduct');
+    $cate=$request->input('cateProduct');
+    $name=$request->input('nameProduct');
+    $mota=$request->input('mota');
+    $gia=$request->input('price');
+    $data=[
+        'CategoryID'=>$cate,
+        'price'=>$gia,
+        'name'=>$name,
+        'description'=>$mota,
+    ];
+    info($id);
+    
+    DB::table('product')->where('id',$id)
+                        ->update($data);
+    return redirect('/sanpham');
+
+});
+Route::post('admin/viewdetail',function(Request $request){
+    $id=$request->id;
+    info($id);
+    $product=DB::table('product')->where('id',$id)->get();
+    return $product;
+
 });
 
 
