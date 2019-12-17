@@ -210,7 +210,8 @@
 
                         <div id="xac-nhan">
                             <h3>Xác nhận mua hàng</h3>
-                            <form>
+                            <form method="post" action="{{asset('sendcart')}}">
+                            <input type="hidden" name="_token" value="{{csrf_token()}}">
                                 <div class="form-group">
                                     <label for="email">Email address:</label>
                                     <input required type="email" class="form-control" id="email" name="email">
