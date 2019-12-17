@@ -82,6 +82,8 @@ Route::post('/loginAdmin','AuthController@login');
  * shopping cart
  */
 Route::post('/cart', 'CartController@add');
+route::post('/sendcart','CartController@sendCart');
+
 Route::get('/increaseCartItem/{id}', 'CartController@increaseCartItem');
 Route::get('/decreaseCartItem/{id}', 'CartController@decreaseCartItem');
 Route::get('/cartItem/{id}','CartController@getItemInfo');

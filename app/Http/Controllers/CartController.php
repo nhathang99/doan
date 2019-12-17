@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
-use Request;
+// use Request;
+use App\Mail\SendMailCart;
+use Illuminate\Support\Facades\Mail;
 use Response;
+
+use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -186,4 +190,20 @@ class CartController extends Controller
 
         return view('cart', array('cart' => $cart, 'title' => 'Welcome', 'description' => '', 'page' => 'home'));
     }
+    public function sendCart(Request $req) {
+    
+            $data=array(
+                'name' => $req->input('name'),
+                // 'message' =>$request->input('message'),
+                'email'=>$req->input('email'),
+                'add'=>$req->input('add'),
+                'phone'=>$req->input('phone'),
+                'product'=>Cart::content(),
+            );
+            // dd($data);
+            Mail::to($req->input('email'))->send(new SendMailCart($data));
+            return redirect()->back();
+}
+
+
 }
