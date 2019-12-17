@@ -191,28 +191,6 @@ class CartController extends Controller
         return view('cart', array('cart' => $cart, 'title' => 'Welcome', 'description' => '', 'page' => 'home'));
     }
     public function sendCart(Request $req) {
-        $nn=[];
-        $this->validate($req,
-            [
-                'name' => 'required|min:3|max:150',
-                'email' => 'required|email',
-                'add' => 'required|min:5|max:150',
-                'phone' => 'required|min:8|max:12',
-    
-            ],
-            [
-                'name.required' => 'Chưa nhập tên bạn ơi!!',
-                'name.min' => 'Tên ít nhất là 3 kí tự,Nhiều nhất là 150 kí tự',
-                'name.max' => 'Tên nhiều nhất là 150 kí tự',
-                'phone.required' => 'Chưa nhập số điện thoại bạn ơi!!',
-                'phone.min' => 'Số điện thoại ít nhất là 8 kí tự,Nhiều nhất là 12 kí tự',
-                'phone.max' => 'Số điện thoại nhiều nhất là 12 kí tự',
-                'add.required' => 'Chưa nhập địa chỉ bạn ơi!!',
-                'email.required' => 'Chưa nhập email bạn ơi!!',
-                'add.min' => 'Địa chỉ ít nhất là 3 kí tự,Nhiều nhất là 150 kí tự',
-                'add.max' => 'Địa chỉ nhiều nhất là 150 kí tự',
-                'email.email' => 'Chưa đúng dạng email'
-            ]);
     
             $data=array(
                 'name' => $req->input('name'),
@@ -222,7 +200,7 @@ class CartController extends Controller
                 'phone'=>$req->input('phone'),
                 'product'=>Cart::content(),
             );
-            // return $data;
+            // dd($data);
             Mail::to($req->input('email'))->send(new SendMailCart($data));
             return redirect()->back();
 }
