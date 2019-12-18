@@ -34,7 +34,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -49,25 +49,20 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
+            
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="/sanpham" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Quan ly san pham</span>
+                    <span>Quản lý sản phẩm</span>
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Quan ly khach hang</span>
+                    <span>Quản lý khách hàng</span>
                 </a>
             </li>
 
@@ -76,10 +71,7 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Addons
-            </div>
+           
 
 
 
@@ -314,7 +306,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                <a href="/themsp" class="btn btn-outline-primary">thêm sản phẩm</a>
+                                <a href="/themsp" class="btn btn-outline-primary">Thêm sản phẩm</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -322,10 +314,10 @@
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>id sp</th>
-                                            <th>ten sp</th>
-                                            <th>loai sp</th>
-                                            <th>hanh dong</th>
+                                            <th>ID</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Category</th>
+                                            <th>Hành động</th>
                                         </tr>
                                     </thead>
 
