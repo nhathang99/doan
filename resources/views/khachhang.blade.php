@@ -436,19 +436,32 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="/api/admin/updateProduct" method="POST">
+                    <form enctype="multipart/form-data" action="/api/admin/updateProduct" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">ID sản phẩm:</label>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}"></div>
+                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" disabled>
+                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" style="display:none">
+
+                        </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Tên sản phẩm:</label>
                             <input type="text" class="form-control" name="nameProduct" id="nameProduct" value="{{$data[0]->name}}">
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Loại sản phẩm:</label>
                             <input type="text" name="cateProduct" class="form-control" id="cateProduct">
-                        </div>
+                        </div> --}}
+                        <div class="form-group">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect">Chọn Loại Sản Phẩm</label>
+                            <select class="custom-select mr-sm-2" name="categorySelect" id="categorySelect">
+                              <option id="selected" value=""></option>
+                              <option value="1">Áo Nữ</option>
+                              <option value="2">Váy</option>
+                              <option value="3">Đầm</option>
+                              <option value="4">Quần</option>
+                            </select>
+                          </div>                     
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Giá</label>
                             <input type="text" class="form-control" id="price" name="price" value="{{$data[0]->price}}">
@@ -462,6 +475,10 @@
                             <label for="recipient-name" class="col-form-label">Hình ảnh:</label>
                             <div class="product-prop product-img"></div><img id="image" src=""
                                 width="70%">
+                                <div>
+                                    <label for="image2" class="btn">Change image</label>
+                                    <input id="image2" name="image2" onchange="loadFileImageProduct(event)" style="display:none" type="file">
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -492,7 +509,10 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
-        
+        var loadFileImageProduct = function(event) {
+    var image = document.getElementById('product-avatar');
+    image.src = URL.createObjectURL(event.target.files[0]);
+  };
         var idProductDelete="";
         function getIDproduct(id){
             idProductDelete=id;
@@ -525,9 +545,11 @@
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(data){
                     console.log(data);
+                    $('#idProduct1').val(data[0]['id']);
                     $('#idProduct').val(data[0]['id']);
                     $('#nameProduct').val(data[0]['name']);
-                    $('#cateProduct').val(data[0]['CategoryID']);
+                    $('#selected').text(data[0]['CategoryName']);
+                    $('#selected').attr('value',data[0]['CategoryID']);    
                     $('#price').val(data[0]['price']);
                     $('#mota').val(data[0]['description']);
                     $('#image').attr('src',data[0]['image']);

@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Utils\UploadFile;
 // use Redirect;
 
 /*
@@ -21,27 +22,52 @@ Route::delete('delete/product/{id}', function ($id) {
 });
 Route::post('admin/updateProduct',function(Request $request){
     $id=$request->input('idProduct');
-    $cate=$request->input('cateProduct');
+    $cate=(int)$request->get('categorySelect');
     $name=$request->input('nameProduct');
     $mota=$request->input('mota');
     $gia=$request->input('price');
+    $newImageURLUpdate = $request->hasFile('image2');
+    $imageUpdate = $request->file('image2');
+    info($imageUpdate);
+  
     $data=[
         'CategoryID'=>$cate,
         'price'=>$gia,
         'name'=>$name,
         'description'=>$mota,
+        'updated_at' => now(),
     ];
-    info($id);
-    
-    DB::table('product')->where('id',$id)
+    if ($newImageURLUpdate) {
+        info('vao if');
+        $imageUpdate = $request->file('image2');
+        $newImageURLUpdate = UploadFile::uploadFile('upload', $imageUpdate);
+        DB::table('product')
+            ->where('id', $id)
+            ->update([
+                'CategoryID'=>$cate,
+                'price'=>$gia,
+                'name'=>$name,
+                'description'=>$mota,
+                'image'=>$newImageURLUpdate,
+                'updated_at' => now(),
+            ]);
+    }
+    else {
+        info('vao else');
+        DB::table('product')->where('id',$id)
                         ->update($data);
+    }
     return redirect('/sanpham');
 
 });
 Route::post('admin/viewdetail',function(Request $request){
     $id=$request->id;
-    info($id);
-    $product=DB::table('product')->where('id',$id)->get();
+    $product=DB::table('product')->where('product.id',$id)
+                                ->join('category','category.id','=','product.CategoryID')
+                                ->select('product.*','category.CategoryName','category.id')
+                                ->get();
+    // $category=DB::table('category')->get();
+    // info($category);
     return $product;
 
 });
