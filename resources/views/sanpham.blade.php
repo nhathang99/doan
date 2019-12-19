@@ -502,9 +502,9 @@
 
     <script>
         var loadFileImageProduct = function(event) {
-    var image = document.getElementById('product-avatar');
-    image.src = URL.createObjectURL(event.target.files[0]);
-  };
+        var image = document.getElementById('image');
+        image.src = URL.createObjectURL(event.target.files[0]);
+        };
         var idProductDelete="";
         function getIDproduct(id){
             idProductDelete=id;
