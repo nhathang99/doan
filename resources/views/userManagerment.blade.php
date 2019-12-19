@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>SB Admin 2 - Tables</title>
+    <title>User Managerment</title>
 
     <!-- Custom fonts for this template -->
     <link href="{{asset('/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -60,10 +60,11 @@
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/user" aria-expanded="true" aria-controls="collapseTwo">
-                  <span>Quản lý người dùng</span>
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <span>Quản lý khách hàng</span>
                 </a>
-              </li>
+            </li>
 
 
 
@@ -299,13 +300,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Danh sách User</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                <a href="/themsp" class="btn btn-outline-primary">Thêm sản phẩm</a>
+                                <a href="/themuser" class="btn btn-outline-primary">Thêm User</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -314,28 +315,28 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Category</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
                                             <th>Hành động</th>
                                         </tr>
                                     </thead>
 
 
                                     <tbody>
-                                        @foreach ($data as $item)
+                                        @foreach ($users as $user)
                                         <tr>
-                                            <td>{{$item->id}}</td>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->CategoryName}}</td>
+                                            <td>{{$user->id}}</td>
+                                            <td>{{$user->name}}</td>
+                                            <td>{{$user->email}}</td>
                                             <td>
                                                 {{-- <a href="#" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"onclick=" deleteSP('{{$item->id}}')"><span
                                                     class="glyphicon glyphicon-trash"></span> Xóa</a> --}}
                                                 <a data-toggle="modal" data-target="#deleteProductModal"
-                                                    class="btn btn-outline-danger" onclick="getIDproduct({{$item->id}})">Xóa</a>
-                                                <button onclick="location.href='/xemthem/{{$item->id}}'" type="button"
+                                                    class="btn btn-outline-danger" onclick="getIDproduct({{$user->id}})">Xóa</a>
+                                                <button onclick="location.href='/xemthemUser/{{$user->id}}'" type="button"
                                                     class="btn btn-outline-info">Xem thêm</button>
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#ModalUpdateProduct" onclick="viewDetail('{{$item->id}}')" data-whatever="@mdo">Sửa</button>
+                                                    data-target="#ModalUpdateUser" onclick="viewDetailUser('{{$user->id}}')" data-whatever="@mdo">Sửa</button>
                                             </td>
                                         </tr>
                                         <!-- Modal confirm delete product -->
@@ -416,61 +417,37 @@
         </div>
     </div>
 {{-- modal sua san pham --}}
-    <div class="modal fade" id="ModalUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="ModalUpdateUser" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sửa sản phẩm</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Sửa User</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form enctype="multipart/form-data" action="/api/admin/updateProduct" method="POST">
+                    <form enctype="multipart/form-data" action="/api/admin/updateUser" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">ID sản phẩm:</label>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" disabled>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" style="display:none">
+                            <label for="recipient-name" class="col-form-label">ID User</label>
+                            <input type="text" class="form-control" name="idUser" id="idUser" disabled>
+                            <input type="text" class="form-control" name="idUser1" id="idUser1" style="display:none">
 
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Tên sản phẩm:</label>
-                            <input type="text" class="form-control" name="nameProduct" id="nameProduct" value="{{$data[0]->name}}">
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Loại sản phẩm:</label>
-                            <input type="text" name="cateProduct" class="form-control" id="cateProduct">
-                        </div> --}}
-                        <div class="form-group">
-                            <label class="mr-sm-2" for="inlineFormCustomSelect">Chọn Loại Sản Phẩm</label>
-                            <select class="custom-select mr-sm-2" name="categorySelect" id="categorySelect">
-                              <option id="selected" value=""></option>
-                              <option value="1">Áo Nữ</option>
-                              <option value="2">Váy</option>
-                              <option value="3">Đầm</option>
-                              <option value="4">Quần</option>
-                            </select>
-                          </div>                     
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Giá</label>
-                            <input type="text" class="form-control" id="price" name="price" value="{{$data[0]->price}}">
+                            <label for="recipient-name" class="col-form-label">username</label>
+                            <input type="text" class="form-control" name="username" id="username">
                         </div>
                         <div class="form-group">
-                            <label for="message-text" class="col-form-label">Mô tả:</label>
-                            <textarea class="form-control" id="mota" name="mota" cols="50"
-                                rows="5">{{$data[0]->description}}</textarea>
+                            <label for="recipient-name" class="col-form-label">Email</label>
+                            <input type="text" class="form-control" id="email" name="email">
                         </div>
                         <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Hình ảnh:</label>
-                            <div class="product-prop product-img"></div><img id="image" src=""
-                                width="70%">
-                                <div>
-                                    <label for="image2" class="btn">Change image</label>
-                                    <input id="image2" name="image2" onchange="loadFileImageProduct(event)" style="display:none" type="file">
-                                </div>
-                        </div>
+                            <label for="example-date-input" class="col-2 col-form-label">Date</label>
+                              <input class="form-control" id="date" name="date" type="date" value="2011-08-19" id="example-date-input">
+                          </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">Savess</button>
@@ -504,13 +481,13 @@
         var image = document.getElementById('image');
         image.src = URL.createObjectURL(event.target.files[0]);
         };
-        var idProductDelete="";
+        var idUserDelete="";
         function getIDproduct(id){
-            idProductDelete=id;
-            console.log(idProductDelete,'set prodcut id delete')
+            idUserDelete=id;
+            console.log(idUserDelete,'set User id delete')
         }
         function deleteProduct() {
-            var idDelete=idProductDelete;
+            var idDelete=idUserDelete;
             // $.post(`api/delete/${idDelete}`,
             //     {
 
@@ -520,30 +497,26 @@
             //     });
              
             $.ajax({
-                url: `/api/delete/product/${idDelete}`,
+                url: `/api/delete/user/${idDelete}`,
                 type: 'DELETE',
                 success: function(result) {
                     location.reload();
                 }
             });
-            console.log(idDelete, 'get id delete product');
         }
-       function viewDetail(id){
+       function viewDetailUser(id){
             $.ajax({
-                url: `/api/admin/viewdetail`,
+                url: `/api/admin/viewdetailUser`,
                 type: "POST",
                 data:{id: id},
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(data){
                     console.log(data);
-                    $('#idProduct1').val(data[0]['id']);
-                    $('#idProduct').val(data[0]['id']);
-                    $('#nameProduct').val(data[0]['name']);
-                    $('#selected').text(data[0]['CategoryName']);
-                    $('#selected').attr('value',data[0]['CategoryID']);    
-                    $('#price').val(data[0]['price']);
-                    $('#mota').val(data[0]['description']);
-                    $('#image').attr('src',data[0]['image']);
+                    $('#idUser').val(data[0]['id']);
+                    $('#idUser1').val(data[0]['id']);
+                    $('#username').val(data[0]['name']);
+                    $('#email').attr('value',data[0]['email']);    
+                    $('#date').val(data[0]['brithdate']);
                 }
                 });
        }

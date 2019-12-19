@@ -2,6 +2,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Utils\UploadFile;
+use Illuminate\Support\Facades\Redirect;
+
 // use Redirect;
 
 /*
@@ -19,6 +21,14 @@ use App\Utils\UploadFile;
 Route::delete('delete/product/{id}', function ($id) {
     DB::table('product')->where('id', '=', $id)->delete();
     // return redirect('/khachhang');
+});
+Route::delete('delete/user/{id}', function ($id) {
+    DB::table('users')->where('id', '=', $id)->delete();
+    // return redirect('/khachhang');
+});
+Route::post('admin/updateUser',function(Request $request){
+    return redirect('/user');
+    
 });
 Route::post('admin/updateProduct',function(Request $request){
     $id=$request->input('idProduct');
@@ -71,6 +81,17 @@ Route::post('admin/viewdetail',function(Request $request){
     return $product;
 
 });
+Route::post('admin/viewdetailUser',function(Request $request){
+    $id=$request->id;
+    $product=DB::table('users')->where('users.id',$id)
+                                ->get();
+    $test=DB::table('users')->select('brithdate')->get();
+    info($test);
+    // info($category);
+    return $product;
+
+});
+
 
 
 route::post('themsp', function (Request $req) {
@@ -100,6 +121,25 @@ route::post('themsp', function (Request $req) {
          $arr);
 
     return redirect('/khachhang');
+});
+Route::post('/themuser',function(Request $request){
+    $username=$request->input('username');
+    $email=$request->input('email');
+    $password=bcrypt($request->input('password'));
+    $date=$request->input('date');
+    $role=$request->get('role');
+    DB::table('users')->insert(
+        [
+            'name'=>$username,
+            'email'=>$email,
+            'password'=>$password,
+            'brithdate'=>$date,
+            'isAdmin'=>$role,
+            'created_at'=>now(),
+            'updated_at'=>now(),
+        ]
+    );
+    return redirect('/user');
 });
 
 // get all category name
