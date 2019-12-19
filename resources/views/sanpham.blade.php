@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>SB Admin 2 - Tables</title>
 
     <!-- Custom fonts for this template -->
@@ -336,7 +336,7 @@
                                                 <button onclick="location.href='/xemthem/{{$item->id}}'" type="button"
                                                     class="btn btn-outline-info">Xem thêm</button>
                                                 <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#exampleModal" data-whatever="@mdo">Sửa</button>
+                                                    data-target="#ModalUpdateProduct" onclick="viewDetail('{{$item->id}}')" data-whatever="@mdo">Sửa</button>
                                             </td>
                                         </tr>
                                         <!-- Modal confirm delete product -->
@@ -416,8 +416,8 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+{{-- modal sua san pham --}}
+    <div class="modal fade" id="ModalUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -428,39 +428,57 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form enctype="multipart/form-data" action="/api/admin/updateProduct" method="POST">
+                        {{ csrf_field() }}
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">ID sản phẩm:</label>
-                            <input type="text" class="form-control" id="recipient-name" value="{{$data[0]->id}}"></div>
+                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" disabled>
+                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" style="display:none">
+
+                        </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Tên sản phẩm:</label>
-                            <input type="text" class="form-control" id="recipient-name" value="{{$data[0]->name}}">
+                            <input type="text" class="form-control" name="nameProduct" id="nameProduct" value="{{$data[0]->name}}">
                         </div>
-                        <div class="form-group">
+                        {{-- <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Loại sản phẩm:</label>
-                            <input type="text" class="form-control" id="recipient-name">
-                        </div>
+                            <input type="text" name="cateProduct" class="form-control" id="cateProduct">
+                        </div> --}}
+                        <div class="form-group">
+                            <label class="mr-sm-2" for="inlineFormCustomSelect">Chọn Loại Sản Phẩm</label>
+                            <select class="custom-select mr-sm-2" name="categorySelect" id="categorySelect">
+                              <option id="selected" value=""></option>
+                              <option value="1">Áo Nữ</option>
+                              <option value="2">Váy</option>
+                              <option value="3">Đầm</option>
+                              <option value="4">Quần</option>
+                            </select>
+                          </div>                     
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Giá</label>
-                            <input type="text" class="form-control" id="recipient-name" value="{{$data[0]->price}}">
+                            <input type="text" class="form-control" id="price" name="price" value="{{$data[0]->price}}">
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Mô tả:</label>
-                            <textarea class="form-control" id="message-text" cols="50"
+                            <textarea class="form-control" id="mota" name="mota" cols="50"
                                 rows="5">{{$data[0]->description}}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">Hình ảnh:</label>
-                            <div class="product-prop product-img"></div><img src="{{asset($data[0]->image)}}"
+                            <div class="product-prop product-img"></div><img id="image" src=""
                                 width="70%">
+                                <div>
+                                    <label for="image2" class="btn">Change image</label>
+                                    <input id="image2" name="image2" onchange="loadFileImageProduct(event)" style="display:none" type="file">
+                                </div>
                         </div>
-
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Savess</button>
+                        </div>
                     </form>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Save</button>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -483,6 +501,10 @@
     <script src="js/demo/datatables-demo.js"></script>
 
     <script>
+        var loadFileImageProduct = function(event) {
+    var image = document.getElementById('product-avatar');
+    image.src = URL.createObjectURL(event.target.files[0]);
+  };
         var idProductDelete="";
         function getIDproduct(id){
             idProductDelete=id;
@@ -507,8 +529,28 @@
             });
             console.log(idDelete, 'get id delete product');
         }
+       function viewDetail(id){
+            $.ajax({
+                url: `/api/admin/viewdetail`,
+                type: "POST",
+                data:{id: id},
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function(data){
+                    console.log(data);
+                    $('#idProduct1').val(data[0]['id']);
+                    $('#idProduct').val(data[0]['id']);
+                    $('#nameProduct').val(data[0]['name']);
+                    $('#selected').text(data[0]['CategoryName']);
+                    $('#selected').attr('value',data[0]['CategoryID']);    
+                    $('#price').val(data[0]['price']);
+                    $('#mota').val(data[0]['description']);
+                    $('#image').attr('src',data[0]['image']);
+                }
+                });
+       }
 
     </script>
+
 
 </body>
 
