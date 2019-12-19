@@ -43,6 +43,11 @@ route::get('/themsp', function () {
 
     return view('themsp', ['data' => $data]);
 });
+route::get('/themuser', function () {
+    $data = DB::table('users')->get();
+
+    return view('themuser', ['data' => $data]);
+});
 route::get('/xemthem', function () {
     return view('/xemthem');
 
@@ -54,7 +59,16 @@ Route::get('/xemthem/{id}', function ($id) {
     // dd($data);
     return view('xemthem', ['data' => $data]);
 });
+Route::get('/xemthemUser/{id}', function ($id) {
+    $data = DB::table('users')->where('id', '=', $id)->get();
+    // dd($data);
+    return view('xemthemUser', ['data' => $data]);
+});
+Route::get('/user',function(){
+    $users = DB::table('users')->get();
 
+    return view('userManagerment', ['users' => $users]);
+});
 /**
  * homepage
  */

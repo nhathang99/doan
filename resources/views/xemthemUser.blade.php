@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title>SB Admin 2 - Tables</title>
+
+    <title>Chi tiết sản phẩm</title>
 
     <!-- Custom fonts for this template -->
     <link href="{{asset('/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -22,6 +22,43 @@
 
     <!-- Custom styles for this page -->
     <link href="{{asset('/vendor/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet">
+    <style>
+        body{
+    font-family: arial;
+    padding: 0;
+    margin: 0;
+    font-size: 14px;
+}
+.container{
+    width: 12000px;
+    margin: 0 auto;
+}
+h1{
+    text-align: center;
+}
+
+
+
+.product-img img{
+    width: 200px;
+    padding: 10px;
+    height: 180px;
+}
+
+
+.buttons{
+    text-align: right;
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 15px;
+    line-height: 38px;
+}
+.buttons a{
+    color: whitesmoke;
+    padding: 10px;
+    background: #000;
+}
+    </style>
 
 </head>
 
@@ -34,11 +71,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+                <div class="sidebar-brand-text mx-3">Admin Page</div>
             </a>
 
             <!-- Divider -->
@@ -49,29 +86,28 @@
             <!-- Divider -->
             <hr class="sidebar-divider">
 
-            
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-cog"></i>
+                    <span>Quan ly khach hang</span>
+                </a>
+            </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/sanpham" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
-                    <span>Quản lý sản phẩm</span>
+                    <i class="fas fa-fw fa-wrench"></i>
+                    <span>Quan ly san pham</span>
                 </a>
             </li>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/user" aria-expanded="true" aria-controls="collapseTwo">
-                  <span>Quản lý người dùng</span>
-                </a>
-              </li>
-
-
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-           
-
 
 
             <!-- Divider -->
@@ -299,83 +335,80 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Chi tiết sản phẩm</h1>
+
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">
-                                <a href="/themsp" class="btn btn-outline-primary">Thêm sản phẩm</a>
-                            </h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="50%" cellspacing="0">
                                     <thead>
                                         <tr>
+
+                                            <div class="product-prop product-name">
                                             <th>ID</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Category</th>
-                                            <th>Hành động</th>
+                                            <th>UserName</th>
+                                            <th>Email</th>
+                                            <th>BirthDate</th>
+                                            </div>
                                         </tr>
                                     </thead>
 
-
                                     <tbody>
-                                        @foreach ($data as $item)
                                         <tr>
-                                            <td>{{$item->id}}</td>
-                                            <td>{{$item->name}}</td>
-                                            <td>{{$item->CategoryName}}</td>
-                                            <td>
-                                                {{-- <a href="#" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"onclick=" deleteSP('{{$item->id}}')"><span
-                                                    class="glyphicon glyphicon-trash"></span> Xóa</a> --}}
-                                                <a data-toggle="modal" data-target="#deleteProductModal"
-                                                    class="btn btn-outline-danger" onclick="getIDproduct({{$item->id}})">Xóa</a>
-                                                <button onclick="location.href='/xemthem/{{$item->id}}'" type="button"
-                                                    class="btn btn-outline-info">Xem thêm</button>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#ModalUpdateProduct" onclick="viewDetail('{{$item->id}}')" data-whatever="@mdo">Sửa</button>
-                                            </td>
+                                                <td><div></div>{{$data[0]->id}}</td>
+                                                <td>{{$data[0]->name}}</td>
+                                                <td>{{$data[0]->email}}</td>
+                                                <td>{{$data[0]->brithdate}}</td>
                                         </tr>
-                                        <!-- Modal confirm delete product -->
-                                        <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    {{-- <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Bạn chắc muốn xóa sản phẩm này chứ ?</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    </div> --}}
-                                                    <div class="modal-body">
-                                                        <strong>Bạn chắc muốn xóa sản phẩm này chứ ? </strong>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button onclick="deleteProduct()"
-                                                            class="btn btn-secondary" data-dismiss="modal">Yes</button>
-                                                        <button type="button" class="btn btn-primary">No</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
                                     </tbody>
                                 </table>
+                                <div class="buttons">
+                                        <a href="/user">Back</a>
+                                    </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
                 <!-- /.container-fluid -->
+              <!--  <div class="buttons">
+                        <a href="./product_editing.php">Thêm sản phẩm</a>
+                    </div>-->
+<!--
+                <div class="main-content">
+                    <h1>Danh sách sản phẩm</h1>
 
-            </div>
+                    <div class="product-items">
 
+                        <ul>
 
+                            <li class="product-item-heading">
+                                <div class="product-prop product-name" >ID</div>
+                                <div class="product-prop product-name" >Tên sản phẩm</div>
+                                <div class="product-prop product-name">Loại sản phẩm</div>
+                                <div class="product-prop product-name">Gia</div>
+                                <div class="product-prop product-name">Mô tả</div>
+                                <div class="product-prop product-img">Hình ảnh</div>
+                            </li>
+                        <li class="sanpham">
+                        <div class="product-prop product-name" ></div>
+                        <div class="product-prop product-name" ></div>
+                        <div class="product-prop product-name"></div>
+                        <div class="product-prop product-name"></div>
+                        <div class="product-prop product-name"></div>
+                        <div class="product-prop product-img"><img src=""></div>
+                        </li>
+                    </ul>
+
+                        </div>
+            </div>-->
             <!-- End of Main Content -->
 
-            <!-- Footer -->
+            <!-- Footer
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
@@ -383,7 +416,7 @@
                     </div>
                 </div>
             </footer>
-            <!-- End of Footer -->
+             Footer -->
 
         </div>
         <!-- End of Content Wrapper -->
@@ -415,72 +448,6 @@
             </div>
         </div>
     </div>
-{{-- modal sua san pham --}}
-    <div class="modal fade" id="ModalUpdateProduct" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Sửa sản phẩm</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form enctype="multipart/form-data" action="/api/admin/updateProduct" method="POST">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">ID sản phẩm:</label>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" disabled>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" style="display:none">
-
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Tên sản phẩm:</label>
-                            <input type="text" class="form-control" name="nameProduct" id="nameProduct" value="{{$data[0]->name}}">
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Loại sản phẩm:</label>
-                            <input type="text" name="cateProduct" class="form-control" id="cateProduct">
-                        </div> --}}
-                        <div class="form-group">
-                            <label class="mr-sm-2" for="inlineFormCustomSelect">Chọn Loại Sản Phẩm</label>
-                            <select class="custom-select mr-sm-2" name="categorySelect" id="categorySelect">
-                              <option id="selected" value=""></option>
-                              <option value="1">Áo Nữ</option>
-                              <option value="2">Váy</option>
-                              <option value="3">Đầm</option>
-                              <option value="4">Quần</option>
-                            </select>
-                          </div>                     
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Giá</label>
-                            <input type="text" class="form-control" id="price" name="price" value="{{$data[0]->price}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Mô tả:</label>
-                            <textarea class="form-control" id="mota" name="mota" cols="50"
-                                rows="5">{{$data[0]->description}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Hình ảnh:</label>
-                            <div class="product-prop product-img"></div><img id="image" src=""
-                                width="70%">
-                                <div>
-                                    <label for="image2" class="btn">Change image</label>
-                                    <input id="image2" name="image2" onchange="loadFileImageProduct(event)" style="display:none" type="file">
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Savess</button>
-                        </div>
-                    </form>
-                </div>
-                
-            </div>
-        </div>
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -499,57 +466,17 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
 
-    <script>
-        var loadFileImageProduct = function(event) {
-        var image = document.getElementById('image');
-        image.src = URL.createObjectURL(event.target.files[0]);
-        };
-        var idProductDelete="";
-        function getIDproduct(id){
-            idProductDelete=id;
-            console.log(idProductDelete,'set prodcut id delete')
-        }
-        function deleteProduct() {
-            var idDelete=idProductDelete;
-            // $.post(`api/delete/${idDelete}`,
-            //     {
+   <script>
+    function deleteSP(idSP) {
+            $.post(`api/delete/${idSP}`,
+                {
 
-            //     },
-            //     function (data, status) {
-            //         location.reload();
-            //     });
-             
-            $.ajax({
-                url: `/api/delete/product/${idDelete}`,
-                type: 'DELETE',
-                success: function(result) {
+                },
+                function (data, status) {
                     location.reload();
-                }
-            });
-            console.log(idDelete, 'get id delete product');
-        }
-       function viewDetail(id){
-            $.ajax({
-                url: `/api/admin/viewdetail`,
-                type: "POST",
-                data:{id: id},
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success: function(data){
-                    console.log(data);
-                    $('#idProduct1').val(data[0]['id']);
-                    $('#idProduct').val(data[0]['id']);
-                    $('#nameProduct').val(data[0]['name']);
-                    $('#selected').text(data[0]['CategoryName']);
-                    $('#selected').attr('value',data[0]['CategoryID']);    
-                    $('#price').val(data[0]['price']);
-                    $('#mota').val(data[0]['description']);
-                    $('#image').attr('src',data[0]['image']);
-                }
                 });
-       }
-
+        }
     </script>
-
 
 </body>
 

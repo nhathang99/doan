@@ -63,7 +63,7 @@
 
       <!-- Nav Item - Utilities Collapse Menu -->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#"   aria-expanded="true" >
+        <a class="nav-link collapsed" href="/user" aria-expanded="true" aria-controls="collapseTwo">
           <span>Quản lý người dùng</span>
         </a>
       </li>
