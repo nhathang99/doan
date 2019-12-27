@@ -53,16 +53,16 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/sanpham" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="/sanpham"
+                    aria-expanded="true" >
                     <span>Quản lý sản phẩm</span>
                 </a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/user" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    <span>Quản lý khách hàng</span>
+                    <span>Quản lý người dùng</span>
                 </a>
             </li>
 
@@ -300,13 +300,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Danh sách User</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Danh sách người dùng</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                <a href="/themuser" class="btn btn-outline-primary">Thêm User</a>
+                                <a href="/themuser" class="btn btn-outline-primary">Tạo tài khoản</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -351,7 +351,7 @@
                                                     </button>
                                                     </div> --}}
                                                     <div class="modal-body">
-                                                        <strong>Bạn chắc muốn xóa sản phẩm này chứ ? </strong>
+                                                        <strong>Bạn chắc muốn xóa ? </strong>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button onclick="deleteProduct()"

@@ -93,19 +93,19 @@ h1{
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="/sanpham" 
+                    aria-expanded="true" >
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Quan ly khach hang</span>
+                    <span>Quản lý sản phẩm</span>
                 </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
+                <a class="nav-link collapsed" href="/user" 
+                    aria-expanded="true" >
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Quan ly san pham</span>
+                    <span>Quản lý người dùng</span>
                 </a>
             </li>
 

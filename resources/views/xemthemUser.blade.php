@@ -93,19 +93,19 @@ h1{
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                <a class="nav-link collapsed" href="/sanpham" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa-fw fa-cog"></i>
-                    <span>Quan ly khach hang</span>
+                    <span>Quản lý sản phẩm</span>
                 </a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
+                <a class="nav-link collapsed" href="/user" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-wrench"></i>
-                    <span>Quan ly san pham</span>
+                    <span>Quản lý người dùng</span>
                 </a>
             </li>
 
@@ -335,7 +335,7 @@ h1{
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Chi tiết sản phẩm</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Thông tin chi tiết</h1>
 
 
                     <!-- DataTales Example -->
@@ -362,7 +362,7 @@ h1{
                                                 <td><div></div>{{$data[0]->id}}</td>
                                                 <td>{{$data[0]->name}}</td>
                                                 <td>{{$data[0]->email}}</td>
-                                                <td>{{$data[0]->brithdate}}</td>
+                                                <td>{{date('d-m-Y',strtotime($data[0]->brithdate))}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

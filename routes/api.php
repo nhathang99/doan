@@ -120,7 +120,7 @@ route::post('themsp', function (Request $req) {
       DB::table('product')->insert(
          $arr);
 
-    return redirect('/khachhang');
+    return redirect('/sanpham');
 });
 Route::post('/themuser',function(Request $request){
     $username=$request->input('username');

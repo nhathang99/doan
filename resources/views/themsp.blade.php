@@ -38,7 +38,7 @@
                             <div class="col-lg-7">
                                 <div class="p-5">
                                         <div class="text-center">
-                                                <h1 class= "text-center text-primary mb-5">Them san pham</h1>
+                                                <h1 class= "text-center text-primary mb-5">Thêm sản phẩm</h1>
                                             </div>
 
 
@@ -51,7 +51,7 @@
                                         type="text"
                                         class="form-control"
                                         name="tensanpham"
-                                        placeholder="ten san pham">
+                                        placeholder="Tên sản phẩm">
                                 </div>
                                 <div class="form-group">
                                     <label for="input">Loại Sản phẩm</label>
@@ -75,11 +75,11 @@
                                 <div class="form-group">
                                     <lable for="input">Giá sản phẩm</lable>
                                     <input required type="number" class="form-control" name="giasp"
-                                        placeholder="gia san pham">
+                                       >
                                 </div>
                                 <div class="form-group">
                                     <label for="textarea">Mô tả</label>
-                                        <textarea rows="6" cols="65" name="mota" placeholder="Them mo ta" required></textarea>
+                                        <textarea rows="6" cols="65" name="mota" placeholder="Mô tả" required></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="input">Hình ảnh</label>
@@ -87,7 +87,7 @@
                                         placeholder="hinh anh">
                                 </div>
 
-                                <input type="submit" class="btn btn-primary btn-user btn-block"></input>
+                                <input value="Thêm"ype="submit" class="btn btn-primary btn-user btn-block"></input>
 
 
 
