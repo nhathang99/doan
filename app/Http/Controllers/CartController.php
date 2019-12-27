@@ -202,6 +202,10 @@ class CartController extends Controller
             );
             // dd($data);
             Mail::to($req->input('email'))->send(new SendMailCart($data));
+            // save db
+            // save giaodich
+            
+            // save chitiet giao dich
             return redirect()->back();
 }
 
