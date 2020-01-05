@@ -11,13 +11,14 @@ class CreateUsersTable extends Migration
      *
      * @return void
      */
+    // protected $dateFormat = 'd.m.Y';
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('email')->unique();
-            $table->dateTime('brithdate');
+            $table->date('brithdate')->format('d-m-Y');
             $table->boolean('isAdmin');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

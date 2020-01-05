@@ -516,7 +516,7 @@
                 data:{id: id},
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(data){
-                    console.log(data);
+                    console.log(data[0]['brithdate'],'date');
                     $('#idUser').val(data[0]['id']);
                     $('#idUser1').val(data[0]['id']);
                     $('#username').val(data[0]['name']);
