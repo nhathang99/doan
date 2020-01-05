@@ -67,11 +67,16 @@
           <span>Quản lý người dùng</span>
         </a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="/bill" aria-expanded="true" aria-controls="collapseTwo">
+          <span>Quản lý hóa đơn</span>
+        </a>
+      </li>
 
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-    
+
 
 
 
