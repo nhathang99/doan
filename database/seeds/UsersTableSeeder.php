@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
             'email' => Str::random(10).'@gmail.com',
             'password' => bcrypt('password'),
             // 'fullname'=>'Moc Cat',ư
-            'brithdate'=>'9999-12-31 23:59:59',
+            'brithdate'=>'1993-05-01',
             // 'address'=>'ben cau',
             'isAdmin'=>1,
             'created_at'=>now(),
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
             'email' => Str::random(10).'@gmail.com',
             'password' => bcrypt('password'),
             // 'fullname'=>'Moc Cat',ư
-            'brithdate'=>'1999-12-20 23:59:59',
+            'brithdate'=>'1993-05-01',
             // 'address'=>'ben cau',
             'isAdmin'=>1,
             'created_at'=>now(),
@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
             'email' => Str::random(10).'@gmail.com',
             'password' => bcrypt('password'),
             // 'fullname'=>'Moc Cat',ư
-            'brithdate'=>'1999-02-21 23:59:59',
+            'brithdate'=>'1993-05-01',
             // 'address'=>'ben cau',
             'isAdmin'=>1,
             'created_at'=>now(),
@@ -56,7 +56,7 @@ class UsersTableSeeder extends Seeder
             'email' => Str::random(10).'@gmail.com',
             'password' => bcrypt('password'),
             // 'fullname'=>'Moc Cat',ư
-            'brithdate'=>'1997-12-31 23:59:59',
+            'brithdate'=>'1993-05-01',
             // 'address'=>'ben cau',
             'isAdmin'=>1,
             'created_at'=>now(),
@@ -69,7 +69,7 @@ class UsersTableSeeder extends Seeder
             'email' => Str::random(10).'@gmail.com',
             'password' => bcrypt('password'),
             // 'fullname'=>'Moc Cat',ư
-            'brithdate'=>'1997-12-31 23:59:59',
+            'brithdate'=>'1993-05-01',
             // 'address'=>'ben cau',
             'isAdmin'=>0,
             'created_at'=>now(),

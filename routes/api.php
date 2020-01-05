@@ -26,6 +26,16 @@ Route::delete('delete/user/{id}', function ($id) {
     // return redirect('/khachhang');
 });
 Route::post('admin/updateUser', function (Request $request) {
+    $id=$request->input('idUser1');
+    $username=$request->input('username');
+    $email=$request->input('email');
+    $date=$request->input('date');
+    $data=[
+        'name'=>$username,
+        'email'=>$email,
+        'brithdate'=>$date
+    ];
+    DB::table('users')->where('id',$id)->update($data);
     return redirect('/user');
 
 });
