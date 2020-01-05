@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\DB;
-// use Request;
 use App\Mail\SendMailCart;
 use Illuminate\Support\Facades\Mail;
 use Response;
 
-use Illuminate\Http\Request;
+// use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
@@ -194,14 +194,47 @@ class CartController extends Controller
     
             $data=array(
                 'name' => $req->input('name'),
-                // 'message' =>$request->input('message'),
                 'email'=>$req->input('email'),
                 'add'=>$req->input('add'),
                 'phone'=>$req->input('phone'),
                 'product'=>Cart::content(),
             );
-            // dd($data);
-            Mail::to($req->input('email'))->send(new SendMailCart($data));
+
+            // logic save bill
+            $email = $req->input('email');
+            $phone = $req->input('phone');
+            $address = $req->input('add');
+            // calculate total
+            $total = strval(Cart::subtotal());
+            
+            // save bill
+            $newBillID = DB::table('bill')->insertGetId(
+                [
+                    'customerEmail' => $email,
+                    'customerPhone' => $phone,
+                    'customerAddress' => $address,
+                    'totalValue' => $total,
+                ]
+            );
+
+            // save bill detail
+            if (is_numeric($newBillID)) {
+                foreach (Cart::content() as $value) {
+                    info($value);
+                    $order_detail = [
+                        'billID' => $newBillID,
+                        'productID' =>  $value->id,
+                        'amount' => $value->qty, 
+                        'money' => $value->subtotal,
+                    ];
+                    DB::table('billdetail')->insertGetId(
+                        $order_detail
+                    );
+                }
+                Cart::destroy();
+            }
+
+            // Mail::to($req->input('email'))->send(new SendMailCart($data));
             // save db
             // save giaodich
             

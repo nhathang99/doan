@@ -304,13 +304,12 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">Danh sách sản phẩm</h1>
+                    <h1 class="h3 mb-2 text-gray-800">Chi tiết hóa đơn</h1>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">
-                                <a href="/themsp" class="btn btn-outline-primary">Thêm sản phẩm</a>
                             </h6>
                         </div>
                         <div class="card-body">
@@ -320,8 +319,9 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Tên sản phẩm</th>
-                                            <th>Category</th>
-                                            <th>Hành động</th>
+                                            <th>Số lượng</th>
+                                            <th>Đơn giá</th>
+                                            <th>Thành tiền</th>
                                         </tr>
                                     </thead>
 
@@ -331,40 +331,11 @@
                                         <tr>
                                             <td>{{$item->id}}</td>
                                             <td>{{$item->name}}</td>
-                                            <td>{{$item->CategoryName}}</td>
-                                            <td>
-                                                {{-- <a href="#" onclick="return confirm('Bạn có chắc chắn muốn xóa?')"onclick=" deleteSP('{{$item->id}}')"><span
-                                                    class="glyphicon glyphicon-trash"></span> Xóa</a> --}}
-                                                <a data-toggle="modal" data-target="#deleteProductModal"
-                                                    class="btn btn-outline-danger" onclick="getIDproduct({{$item->id}})">Xóa</a>
-                                                <button onclick="location.href='/xemthem/{{$item->id}}'" type="button"
-                                                    class="btn btn-outline-info">Xem thêm</button>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                    data-target="#ModalUpdateProduct" onclick="viewDetail('{{$item->id}}')" data-whatever="@mdo">Sửa</button>
-                                            </td>
+                                            <td>{{$item->amount}}</td>
+                                            <td>{{$item->price}}</td>
+                                            <td>{{$item->money}}</td>
                                         </tr>
-                                        <!-- Modal confirm delete product -->
-                                        <div class="modal fade" id="deleteProductModal" tabindex="-1" role="dialog"
-                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    {{-- <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Bạn chắc muốn xóa sản phẩm này chứ ?</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                    </div> --}}
-                                                    <div class="modal-body">
-                                                        <strong>Bạn chắc muốn xóa sản phẩm này chứ ? </strong>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button onclick="deleteProduct()"
-                                                            class="btn btn-secondary" data-dismiss="modal">Yes</button>
-                                                        <button type="button" class="btn btn-primary">No</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                       
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -432,55 +403,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form enctype="multipart/form-data" action="/api/admin/updateProduct" method="POST">
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">ID sản phẩm:</label>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" disabled>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" style="display:none">
-
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Tên sản phẩm:</label>
-                            <input type="text" class="form-control" name="nameProduct" id="nameProduct" value="{{$data[0]->name}}">
-                        </div>
-                        {{-- <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Loại sản phẩm:</label>
-                            <input type="text" name="cateProduct" class="form-control" id="cateProduct">
-                        </div> --}}
-                        <div class="form-group">
-                            <label class="mr-sm-2" for="inlineFormCustomSelect">Chọn Loại Sản Phẩm</label>
-                            <select class="custom-select mr-sm-2" name="categorySelect" id="categorySelect">
-                              <option id="selected" value=""></option>
-                              <option value="1">Áo Nữ</option>
-                              <option value="2">Váy</option>
-                              <option value="3">Đầm</option>
-                              <option value="4">Quần</option>
-                            </select>
-                          </div>                     
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Giá</label>
-                            <input type="text" class="form-control" id="price" name="price" value="{{$data[0]->price}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Mô tả:</label>
-                            <textarea class="form-control" id="mota" name="mota" cols="50"
-                                rows="5">{{$data[0]->description}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="recipient-name" class="col-form-label">Hình ảnh:</label>
-                            <div class="product-prop product-img"></div><img id="image" src=""
-                                width="70%">
-                                <div>
-                                    <label for="image2" class="btn">Change image</label>
-                                    <input id="image2" name="image2" onchange="loadFileImageProduct(event)" style="display:none" type="file">
-                                </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Savess</button>
-                        </div>
-                    </form>
+                    
                 </div>
                 
             </div>

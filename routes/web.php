@@ -38,6 +38,24 @@ Route::get('/sanpham', function () {
 
 });
 
+Route::get('/bill',function(){
+    $bills = DB::table('bill')
+    ->get();
+
+    return view('manageBill',['bills'=>$bills]);
+
+});
+
+Route::get('/billDetail/{billID}',function($billID){
+    $result=DB::table('billdetail')
+        ->where('billID',$billID )
+        ->join('product','billdetail.productID','=','product.id')
+        ->get();
+
+        // dd($result);
+        return view('billDetail',['data'=>$result]);
+});
+
 route::get('/themsp', function () {
     $data = DB::table('Category')->get();
 

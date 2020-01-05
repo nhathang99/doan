@@ -15,9 +15,14 @@ class CreateBilldetailTable extends Migration
     {
         Schema::create('billdetail', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('productID')->nullable();
-            $table->integer('quality');
-            $table->unsignedBigInteger('billID')->nullable();
+            $table->unsignedBigInteger('billID');
+            // $table->foreign('billID')->references('id')->on('bill');
+
+            $table->unsignedBigInteger('productID');
+            // $table->foreign('productID')->references('id')->on('products');
+
+            $table->integer('amount');
+            $table->string('money');
             $table->timestamps();
         });
     }

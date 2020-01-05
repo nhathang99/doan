@@ -15,8 +15,10 @@ class CreateBillTable extends Migration
     {
         Schema::create('bill', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('cusID')->nullable();
-            $table->decimal('total',13,5);
+            $table->string('customerEmail');
+            $table->string('customerPhone');
+            $table->string('customerAddress');
+            $table->string('totalValue');
             $table->timestamps();
         });
     }
