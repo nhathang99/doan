@@ -437,7 +437,7 @@
                         <div class="form-group">
                             <label for="recipient-name" class="col-form-label">ID sản phẩm:</label>
                             <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" disabled>
-                            <input type="text" class="form-control" name="idProduct" id="idProduct" value="{{$data[0]->id}}" style="display:none">
+                            <input type="text" class="form-control" name="idProducttt" id="idProductfix" value="{{$data[0]->id}}" style="display:none">
 
                         </div>
                         <div class="form-group">
@@ -516,13 +516,6 @@
         }
         function deleteProduct() {
             var idDelete=idProductDelete;
-            // $.post(`api/delete/${idDelete}`,
-            //     {
-
-            //     },
-            //     function (data, status) {
-            //         location.reload();
-            //     });
              
             $.ajax({
                 url: `/api/delete/product/${idDelete}`,
@@ -541,8 +534,8 @@
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(data){
                     console.log(data);
-                    $('#idProduct1').val(data[0]['id']);
                     $('#idProduct').val(data[0]['id']);
+                    $('#idProductfix').attr('value',data[0]['id'])
                     $('#nameProduct').val(data[0]['name']);
                     $('#selected').text(data[0]['CategoryName']);
                     $('#selected').attr('value',data[0]['CategoryID']);    

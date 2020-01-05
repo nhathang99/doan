@@ -30,7 +30,8 @@ Route::post('admin/updateUser', function (Request $request) {
 
 });
 Route::post('admin/updateProduct', function (Request $request) {
-    $id = $request->input('idProduct');
+    $id = $request->input('idProducttt');
+    // dd($id);
     $cate = (int) $request->get('categorySelect');
     $name = $request->input('nameProduct');
     $mota = $request->input('mota');
@@ -46,6 +47,7 @@ Route::post('admin/updateProduct', function (Request $request) {
         'description' => $mota,
         'updated_at' => now(),
     ];
+    
     if ($newImageURLUpdate) {
         info('vao if');
         $imageUpdate = $request->file('image2');
@@ -62,6 +64,8 @@ Route::post('admin/updateProduct', function (Request $request) {
             ]);
     } else {
         info('vao else');
+        // dd($id);
+        // dd($data);
         DB::table('product')->where('id', $id)
             ->update($data);
     }
